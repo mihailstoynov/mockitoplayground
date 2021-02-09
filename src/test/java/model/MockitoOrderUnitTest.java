@@ -1,13 +1,9 @@
 package model;
 
-import model.Warehouse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -49,5 +45,5 @@ public class MockitoOrderUnitTest {
 
         verify(wh).getInventory("Lagavulin");
         verify(wh, times(0)).setInventory(anyString(), anyInt());
-        }
+    }
 }

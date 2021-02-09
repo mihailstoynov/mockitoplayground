@@ -36,6 +36,5 @@ public class Order {
             warehouse.setInventory(this.name, available - amount);
             this.filled = true;
         }
-
     }
 }
