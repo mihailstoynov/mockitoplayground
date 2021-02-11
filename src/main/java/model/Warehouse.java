@@ -10,6 +10,8 @@ public class Warehouse {
     }
 
     public void setInventory(String item, int amount) {
+        if(amount < 0 )
+            throw new RuntimeException("amount is negative");
         this.inventory.put(item, amount);
     }
 }

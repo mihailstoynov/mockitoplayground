@@ -32,6 +32,8 @@ public class Order {
 
     public void fill(Warehouse warehouse) {
         int available = warehouse.getInventory(name);
+        if (available < 0)
+            throw new RuntimeException("negative inventory");
         if (available > amount) {
             warehouse.setInventory(this.name, available - amount);
             this.filled = true;
