@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
@@ -10,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MockitoOrderUnitTest {
@@ -56,6 +59,22 @@ public class MockitoOrderUnitTest {
 
         Order order = new Order("Lagavulin", 20);
         order.fill(wh); // first call
+        assertThrows(RuntimeException.class, () -> order.fill(wh)); // second call (we expect an exception)
+    }
+
+
+    @Test
+    void testOrderFillingWithNegativeInventory_withGivenWhenThen(@Mock Warehouse wh) {
+        //given
+        given(wh.getInventory(anyString()))
+                .willReturn(20)
+                .willReturn(-1);
+
+        // when
+        Order order = new Order("Lagavulin", 20);
+        order.fill(wh); // first call
+
+        // then
         assertThrows(RuntimeException.class, () -> order.fill(wh)); // second call (we expect an exception)
     }
 }
